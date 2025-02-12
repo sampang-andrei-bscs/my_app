@@ -9,6 +9,8 @@ import {
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { url } from "inspector";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -16,13 +18,15 @@ import {
  *
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
-export const createTable = pgTableCreator((name) => `my_app_${name}`);
+export const createTable = pgTableCreator((name) => `ourgallery_${name}`);
 
-export const posts = createTable(
-  "post",
+export const images = createTable(
+  "images",
   {
     id: integer("id").primaryKey().generatedByDefaultAsIdentity(),
-    name: varchar("name", { length: 256 }),
+    name: varchar("name", { length: 256 }).notNull(),
+    url: varchar("url", {length: 1024}).notNull(),
+    userId: varchar("UserId", {length: 1024}).notNull(),
     createdAt: timestamp("created_at", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
