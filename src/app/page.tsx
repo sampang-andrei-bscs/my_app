@@ -4,6 +4,7 @@ import {SignedOut, SignedIn} from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 import { getMyImages } from "~/server/queries";
+import Image from "next/image";
 
 export const dynamic = "force-dynamic";
 
@@ -12,10 +13,15 @@ async function Images(){
   const images = await getMyImages();
   
   return(
-<div className="flex flex-wrap justify-items-center gap-4">
+<div className="mt-4 flex flex-wrap justify-center gap-4">
         {images.map((image) => (
-          <div key={image.id} className= "w-48"> 
-          <img src= {image.url} />
+          <div key={image.id} className= "flex w-48 flex-col"> 
+          <Image
+           src= {image.url}
+           style={ {objectFit: "contain" }} 
+           width={200}
+           height={200}
+           alt={image.name}/>
           <div>{image.name}</div>
           </div>
 
