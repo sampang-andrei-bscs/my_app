@@ -7,6 +7,7 @@ import {TopNav} from "./_components/topnav";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "./api/uploadthing/core";
+import { Toaster } from "~/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "ourgallery",
@@ -22,7 +23,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode; modal: React.ReactNode }>) {
   return (
     <ClerkProvider>
-    <html lang="en" className={`${GeistSans.variable}`}>
+    <html lang="en" className={`${GeistSans.variable} dark`}>
     <NextSSRPlugin
           /**
            * The `extractRouterConfig` will extract **only** the route configs
@@ -39,6 +40,7 @@ export default function RootLayout({
         </div>
         {modal}
         <div id="modal-root"></div>
+        <Toaster/>
         </body>
     </html>
     </ClerkProvider>
