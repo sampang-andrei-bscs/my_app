@@ -5,6 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 import { getMyImages } from "~/server/queries";
 import Image from "next/image";
+import NotificationHandler from "./components/notification-handler";
 
 export const dynamic = "force-dynamic";
 
@@ -48,6 +49,7 @@ export default async function HomePage() {
       </SignedOut>
 
       <SignedIn>
+        <NotificationHandler />
        <Images />
       </SignedIn>
       
