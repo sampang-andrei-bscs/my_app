@@ -17,12 +17,15 @@ async function Images(){
         {images.map((image) => (
           <div key={image.id} className= "flex h-48 w-48 flex-col"> 
           <Link href={`img/${image.id}`}>
-          <Image
+          <div className="relative aspect-video bg-zinc-900">
+            <Image
            src= {image.url}
-           style={ {objectFit: "contain" }} 
+           style={ {objectFit: "contain", objectPosition: "top"}} 
            width={192}
            height={192}
+           className="h-full w-full object-contain object-top"
            alt={image.name}/>
+           </div>
            </Link>
           <div>{image.name}</div>
           
