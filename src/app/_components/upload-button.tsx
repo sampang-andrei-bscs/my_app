@@ -85,13 +85,13 @@ const posthog = usePostHog();
                 },
             );
         },
-        onUploadError(error){
+        onUploadError(error) {
             posthog.capture("Upload Error", {error});
             toast.dismiss("upload-begin");
             toast.error( <span className="text-lg">Upload Error!</span>);
             router.refresh();
         },
-        onClientUploadComplete(){
+        onClientUploadComplete() {
             toast.dismiss("upload-begin");
             toast( <span className="text-lg">Upload Complete!</span>);
         router.refresh();

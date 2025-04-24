@@ -1,58 +1,38 @@
 import Link from "next/link";
-import { db } from "~/server/db";
-import {SignedOut, SignedIn} from "@clerk/nextjs";
-import { auth } from "@clerk/nextjs/server";
-import { eq } from "drizzle-orm";
-import { getMyImages } from "~/server/queries";
-import Image from "next/image";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 import NotificationHandler from "./components/notification-handler";
+import Image from "next/image";
 
-export const dynamic = "force-dynamic";
-
-
-async function Images(){
-  const images = await getMyImages();
-  
-  return(
-<div className=" flex flex-wrap justify-center gap-4 p-4">
-        {images.map((image) => (
-          <div key={image.id} className= "flex h-48 w-48 flex-col"> 
-          <Link href={`img/${image.id}`}>
-          <div className="relative aspect-video bg-zinc-900">
-            <Image
-           src= {image.url}
-           style={ {objectFit: "contain", objectPosition: "top"}} 
-           width={192}
-           height={192}
-           className="h-full w-full object-contain object-top"
-           alt={image.name}/>
-           </div>
-           </Link>
-          <div>{image.name}</div>
-          
-          </div>
-
-          
-        ))}
-
-      </div>
-  );
-}
-
-export default async function HomePage() {
-
-
+export default function HomePage() {
   return (
-    <main className="">
-      <SignedOut>
-        <div className="h-full w-full text-2x1 text-center">Please Sign In Above</div>
-      </SignedOut>
+    <main className="relative min-h-screen w-full font-sans overflow-hidden">
 
-      <SignedIn>
+      {/* Background Image */}
+      <div className="absolute inset-0 -z-10">
+        <Image
+          src="/hccbg.png" // Make sure this image is in your /public folder
+          alt="School Background"
+          layout="fill"
+          objectFit="cover"
+          objectPosition="center"
+          className="opacity-80"
+        />
+      </div>
+
+      {/* Overlay Button */}
+      <div className="flex h-screen items-center justify-center">
+        <Link href="/request-certificate">
+          <button className="bg-blue-800 text-white text-2xl px-8 py-5 rounded-xl font-bold shadow-xl hover:bg-blue-900 transition">
+            REQUEST CERTIFICATE
+          </button>
+        </Link>
+      </div>
+
+      {/* Authenticated Content */}
+    
         <NotificationHandler />
-       <Images />
-      </SignedIn>
-      
+    
+
     </main>
   );
 }
